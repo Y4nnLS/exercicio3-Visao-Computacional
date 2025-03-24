@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editor de Imagens</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Editor de Imagens</h1>
+
+        <form action="/upload" method="POST" enctype="multipart/form-data" class="upload-form">
+            <label class="file-input-label">
+                Escolher imagem
+                <input type="file" name="image" accept="image/*" required>
+            </label>
+            <button type="submit">Carregar Imagem</button>
+        </form>
+
+        {% if image_path %}
+            <div class="image-preview">
+                <h2>Imagem Carregada:</h2>
+                <img src="{{ image_path }}" alt="Imagem carregada">
+            </div>
+
+            <div class="button-group">
+                <form action="/blur" method="POST">
+                    <input type="hidden" name="image_path" value="{{ image_path }}">
+                    <button type="submit">Aplicar Blur</button>
+                </form>
+
+                <form action="/sharpen" method="POST">
+                    <input type="hidden" name="image_path" value="{{ image_path }}">
+                    <button type="submit">Aplicar Sharpen</button>
+                </form>
+
+                <form action="/rotate" method="POST">
+                    <input type="hidden" name="image_path" value="{{ image_path }}">
+                    <button type="submit">Rotacionar 45°</button>
+                </form>
+                <form action="/reset" method="POST">
+                    <input type="hidden" name="image_path" value="{{ image_path }}">
+                    <button type="submit">Limpar Estilização</button>
+                </form>
+                
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
